@@ -1,4 +1,3 @@
-from deliv_calc.models import Warehouse
 
 
 class WarehouseSorter:
@@ -6,7 +5,7 @@ class WarehouseSorter:
     def __init__(self, distance_algo, warehouses):
         self.distance_algo = distance_algo
         self.warehouses = warehouses
-        self.sortd_warehouses = []  # [(Warehouse: distance)]
+        self.sortd_warehouses = []  # [(Warehouse: distance),]
 
     def sort(self, dest_warehouse):
         self.sortd_warehouses.append((dest_warehouse, 0))

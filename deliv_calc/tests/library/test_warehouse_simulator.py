@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from deliv_calc.models import Inventory, Product, Warehouse
 from deliv_calc.library.warehouse_simulator import simulate_warehouse
+from deliv_calc.models import Inventory, Product, Warehouse
 
 
 class TestWarehouseSimulator(TestCase):

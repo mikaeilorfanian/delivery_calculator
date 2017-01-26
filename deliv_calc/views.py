@@ -4,9 +4,7 @@ from django.shortcuts import render
 
 from deliv_calc.forms import DeliveryCalcForm, DestinationWarehouseForm
 from deliv_calc.library.delivery_calculator import FIFODeliveryCalculator
-from deliv_calc.library.distance_algorithm import (
-    Dijkstra,
-)
+from deliv_calc.library.distance_algorithm import Dijkstra
 from deliv_calc.library.helpers import get_connected_warehouses
 from deliv_calc.library.requested_item import (
     OutOfStockException,
@@ -20,6 +18,7 @@ from deliv_calc.models import Warehouse
 
 
 def index(request):
+
     if request.method == 'POST':
 
         dest_form = DestinationWarehouseForm(request.POST)

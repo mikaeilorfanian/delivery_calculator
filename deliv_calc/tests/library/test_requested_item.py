@@ -1,11 +1,11 @@
 from django.test import TestCase
 
-from deliv_calc.models import Inventory, Product, Warehouse
 from deliv_calc.library.requested_item import (
     OutOfStockException,
     RequestedProduct,
     RequestedProductCollection
 )
+from deliv_calc.models import Inventory, Product, Warehouse
 
 
 class TestRequestedProductCollection(TestCase):

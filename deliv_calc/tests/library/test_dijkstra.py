@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from deliv_calc.library.helpers import turn_edges_into_connections
 from deliv_calc.library.distance_algorithm import Dijkstra
+from deliv_calc.library.helpers import turn_edges_into_connections
 
 
 class TestDijkstra(TestCase):
@@ -68,8 +68,4 @@ class TestDijkstra(TestCase):
         dist_algo = Dijkstra()
 
         self.assertRaises(
-            TypeError,
-            dist_algo.get_shortest_distance,
-            'A',
-            'F',
-        )
+            TypeError, dist_algo.get_shortest_distance, 'A', 'F')

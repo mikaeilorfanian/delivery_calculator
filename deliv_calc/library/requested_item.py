@@ -7,6 +7,10 @@ class ProductDoesNotExist(Exception):
     pass
 
 
+class OutOfStockException(Exception):
+    pass
+
+
 class RequestedProduct:
     
     def __init__(self, item_id, stock_requested):
@@ -18,7 +22,8 @@ class RequestedProduct:
         if not prod:
             raise ProductDoesNotExist('%s is not in any warehouse!' % self._id)
 
-        availbl_stock = prod.inventory_set.filter(warehouse__in=connctd_warehouses).aggregate(Sum('quantity'))
+        availbl_stock = prod.inventory_set.filter(
+            warehouse__in=connctd_warehouses).aggregate(Sum('quantity'))
         if availbl_stock['quantity__sum'] < self.stock_requested:
             raise OutOfStockException('%s is out of stock!' % self._id)
 
@@ -29,28 +34,24 @@ class RequestedProduct:
             % (self._id, self.stock_requested)
 
 
-class OutOfStockException(Exception):
-    pass
-
-
 class RequestedProductCollection:
 
     def __init__(self):
         self.items = []
 
-    def add_items(self, requested_items, avail_warehouses):
-        for new_requested_item in requested_items:
-            self.add_item(new_requested_item, avail_warehouses)
+    def add_items(self, requested_prods, avail_warehouses):
+        for new_requested_prod in requested_prods:
+            self.add_item(new_requested_prod, avail_warehouses)
 
-    def add_item(self, new_requested_item, connctd_warehouses):
-        new_requested_item.available_in_stock(connctd_warehouses)
+    def add_item(self, new_requested_prod, connctd_warehouses):
+        new_requested_prod.available_in_stock(connctd_warehouses)
 
         for item in self.items:
-            if item._id == new_requested_item._id:
-                item.stock_requested += new_requested_item.stock_requested
+            if item._id == new_requested_prod._id:
+                item.stock_requested += new_requested_prod.stock_requested
                 return
 
-        self.items.append(new_requested_item)
+        self.items.append(new_requested_prod)
 
     def __iter__(self):
         for prod in self.items:
@@ -66,7 +67,7 @@ class RequestedProductCollection:
 
 
 def turn_formset_into_requested_prods(formset):
-    requested_items = []
+    requested_prods = []
 
     for form in formset:
         name = form.cleaned_data.get('prod_id')
@@ -74,7 +75,8 @@ def turn_formset_into_requested_prods(formset):
 
         if name and quantity:
             added = False
-            for req_prod in requested_items:
+
+            for req_prod in requested_prods:
                 if req_prod._id == name:
                     req_prod.stock_requested += quantity
                     added = True
@@ -82,6 +84,6 @@ def turn_formset_into_requested_prods(formset):
 
             if not added:
                 req_prod = RequestedProduct(name, quantity)
-                requested_items.append(req_prod)
+                requested_prods.append(req_prod)
 
-    return requested_items
+    return requested_prods

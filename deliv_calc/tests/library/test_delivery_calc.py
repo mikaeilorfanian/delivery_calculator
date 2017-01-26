@@ -1,11 +1,11 @@
 from django.test import TestCase
 
 from deliv_calc.library.delivery_calculator import FIFODeliveryCalculator
-from deliv_calc.models import Inventory, Product, Warehouse
 from deliv_calc.library.requested_item import (
     RequestedProduct,
     RequestedProductCollection
 )
+from deliv_calc.models import Inventory, Product, Warehouse
 from deliv_calc.library.warehouse_simulator import simulate_warehouse
 
 
