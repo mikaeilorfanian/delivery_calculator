@@ -1,0 +1,16 @@
+warehouse1,warehouse2,time
+C1,B5,3
+C1,H2,6
+C1,H3,8
+C1,B2,24
+H2,B2,12
+B2,W3,1
+H2,B1,12
+B1,W4,4
+H2,B3,24
+H3,B3,2
+H3,B4,3
+B4,W1,1
+B3,W1,2
+B3,W2,1
+

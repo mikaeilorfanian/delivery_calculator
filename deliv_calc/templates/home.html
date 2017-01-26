@@ -1,0 +1,36 @@
+<form action="/" method="post">
+    {% csrf_token %}
+
+    {{ dest_form.as_p }}
+    {{ formset.management_form }}
+        <table>
+            <thead>
+                {% for form in formset.forms %}
+                    {% if forloop.first %}
+                        {% for field in form %}
+                            <th>{{ field.label_tag }}</th>
+                        {% endfor %}
+                    {% endif %}
+            </thead>
+            <tbody>
+                    <tr>
+                        {% for field in form %}
+                            <td>{{ field }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>    <input type="submit" value="Submit" />
+        </form>
+
+{{ my_formset.management_form }}
+
+{% if error %}
+    {{ error }}
+{% endif %}
+
+{% if deliv_time %}
+    <p>
+        Shortest delivery time: {{ deliv_time }} hour(s)
+    </p>
+{% endif %}
