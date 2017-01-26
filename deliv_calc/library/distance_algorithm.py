@@ -1,3 +1,6 @@
+from collections import defaultdict
+from heapq import *
+
 from deliv_calc.models import Connection, Warehouse
 
 
@@ -25,19 +28,19 @@ class Dijkstra(BaseDistanceAlgorithm):
         return edges
 
     def _dijkstra(self, f, t):
-        from collections import defaultdict
-        from heapq import *
-        g = defaultdict(list)
-        for l,r,c in self.edges:
-            g[l].append((c,r))
 
-        q, seen = [(0,f,())], set()
+        g = defaultdict(list)
+        for l, r, c in self.edges:
+            g[l].append((c, r))
+
+        q, seen = [(0, f, ())], set()
         while q:
-            (cost,v1,path) = heappop(q)
+            (cost, v1, path) = heappop(q)
             if v1 not in seen:
                 seen.add(v1)
                 path = (v1, path)
-                if v1 == t: return (cost, path)
+                if v1 == t:
+                    return cost, path
 
                 for c, v2 in g.get(v1, ()):
                     if v2 not in seen:
@@ -45,10 +48,3 @@ class Dijkstra(BaseDistanceAlgorithm):
 
         return float("inf")
 
-
-def turn_edges_into_connections(edges):
-    for edge in edges:
-        start_wh = Warehouse.objects.get_or_create(name=edge[0])[0]
-        end_wh = Warehouse.objects.get_or_create(name=edge[1])[0]
-        Connection.objects.create(
-            start=start_wh, end=end_wh, distance=edge[2])

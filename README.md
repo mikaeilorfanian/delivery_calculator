@@ -6,7 +6,8 @@ This decision has the following effects:
 1. In its current form, the efficiency of the underlying algorithms is not a priority.  
 But, due to its extensibility, the most important algorithms can easily be changed or extended.  
 2. The Delivery Calculator feature of the application runs simulations.  
-This means that when you calculate a delivery time, no changes are made to the database.
+This means that when you calculate a delivery time, no changes are made to the database.  
+Another note: I've used an implementation of the dijkstra algorithm that wasn't written by me. It's been unit tested to mak sure that it works correctly.
 ## Running the Project
 ### Getting Ready
 This project requires the latest version of `python 2.7` and `Django 1.7`.    

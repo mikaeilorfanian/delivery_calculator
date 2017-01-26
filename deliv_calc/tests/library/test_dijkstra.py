@@ -1,9 +1,8 @@
 from django.test import TestCase
 
-from deliv_calc.library.distance_algorithm import (
-    Dijkstra,
-    turn_edges_into_connections,
-)
+from deliv_calc.library.helpers import turn_edges_into_connections
+from deliv_calc.library.distance_algorithm import Dijkstra
+
 
 class TestDijkstra(TestCase):
 
