@@ -66,7 +66,8 @@ def index(request):
 
     else:
         dest_form = DestinationWarehouseForm(request.POST)
-        DeliverCalcFormset = formset_factory(DeliveryCalcForm, extra=3)
+        DeliverCalcFormset = formset_factory(
+            DeliveryCalcForm, extra=4, min_num=1, validate_min=1)
         deliv_calc_formset = DeliverCalcFormset()
     
     return render(request, 
