@@ -70,5 +70,8 @@ def index(request):
             DeliveryCalcForm, extra=4, min_num=1, validate_min=1)
         deliv_calc_formset = DeliverCalcFormset()
     
-    return render(request, 
-        'home.html', {'dest_form': dest_form, 'formset': deliv_calc_formset})
+    return render(
+        request,
+        'home.html',
+        {'dest_form': dest_form, 'formset': deliv_calc_formset}
+    )
